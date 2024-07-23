@@ -6,6 +6,11 @@ import com.example.appthemovie.viewmodel.CommonVN;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, CommonVN>{
     @Override
+    protected Class<CommonVN> initViewModel() {
+        return CommonVN.class;
+    }
+
+    @Override
     protected void initView() {showFragment(M000SplashFrg.TAG,null,false);
     }
 

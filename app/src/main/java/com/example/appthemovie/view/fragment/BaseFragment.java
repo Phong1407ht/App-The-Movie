@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,12 @@ public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewMode
     protected OnMainCallBack callBack;
     protected Context context;
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     public void setData(Object data) {
         mData = data;
     }
@@ -38,6 +46,7 @@ public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewMode
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = initViewBinding(inflater, container);
         viewmodel = new ViewModelProvider(this).get(getClassViewModel());
+        viewmodel.setAPICallBack(this);
         initView();
         return binding.getRoot();
     }
@@ -46,7 +55,8 @@ public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewMode
 
     @Override
     public void onClick(View view) {
-
+        view.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+        clickView(view);
     }
 
     protected void clickView(View view) {

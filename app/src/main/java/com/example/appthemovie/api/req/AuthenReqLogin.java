@@ -1,13 +1,16 @@
 package com.example.appthemovie.api.req;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AuthenReqLogin {
     public String username;
     public String password;
-    public String request_token;
+    @SerializedName("request_token")
+    public String requestToken;
 
-    public AuthenReqLogin(String password, String request_token, String username) {
+    public AuthenReqLogin(String password, String requestToken, String username) {
         this.password = password;
-        this.request_token = request_token;
+        this.requestToken = requestToken;
         this.username = username;
     }
 }

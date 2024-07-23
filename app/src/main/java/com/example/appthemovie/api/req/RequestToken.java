@@ -1,9 +1,12 @@
 package com.example.appthemovie.api.req;
 
-public class RequestToken {
-    public String request_token;
+import com.google.gson.annotations.SerializedName;
 
-    public RequestToken(String request_token) {
-        this.request_token = request_token;
+public class RequestToken {
+    @SerializedName("request_token")
+    public String requestToken;
+
+    public RequestToken(String requestToken) {
+        this.requestToken = requestToken;
     }
 }

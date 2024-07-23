@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
 import com.example.appthemovie.R;
@@ -17,13 +18,18 @@ import java.lang.reflect.Constructor;
 public abstract class BaseActivity<T extends ViewBinding,M extends ViewModel> extends AppCompatActivity implements OnMainCallBack {
     protected T binding;
     protected M viewmodel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = initViewBinding();
+        viewmodel = new ViewModelProvider(this).get(initViewModel());
         setContentView(binding.getRoot());
         initView();
     }
+
+    protected abstract Class<M> initViewModel();
+
     public void showFragment(String tag, Object data, boolean isBack) {
         try {
             Class<?> clazz = Class.forName(tag);  //Trỏ vào 1 fragment class
