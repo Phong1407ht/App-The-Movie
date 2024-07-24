@@ -16,7 +16,7 @@ public interface ApiService {
     String API = "471d6fac58c1ce12dc1ba9502466d0a2";
     // https://www.themoviedb.org/3/
     @GET("authentication/token/new?api_key=" + API)
-    Call<RequestToken> requestToken();
+    Call<ResAuthen> requestToken();
 
     @POST("authentication/session/new?api_key=" + API)
     Call<ResSession> createSession(@Body RequestToken requestToken);
