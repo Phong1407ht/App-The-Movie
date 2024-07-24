@@ -1,6 +1,5 @@
 package com.example.appthemovie.viewmodel;
 
-import android.util.Log;
 
 import com.example.appthemovie.api.ApiService;
 import com.example.appthemovie.api.req.AuthenReqLogin;

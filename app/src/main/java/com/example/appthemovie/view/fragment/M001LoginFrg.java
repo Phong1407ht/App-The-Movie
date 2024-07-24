@@ -9,14 +9,18 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.appthemovie.R;
+import com.example.appthemovie.Saving;
 import com.example.appthemovie.databinding.M001LoginFrgBinding;
 import com.example.appthemovie.viewmodel.M001LoginVM;
 
-public class M001LoginFrg extends BaseFragment<M001LoginFrgBinding, M001LoginVM>{
+public class M001LoginFrg extends BaseFragment<M001LoginFrgBinding, M001LoginVM> {
     public static final String TAG = M001LoginFrg.class.getName();
+    public static final String KEY_SESSION = "KEY_SESSION";
+    private static final String KEY_REQ_TOKEN = "KEY_REQ_TOKEN";
+
     @Override
     protected void initView() {
-        Log.e(TAG,"InitViewLogin.....");
+        Log.e(TAG, "InitViewLogin.....");
         binding.btLogin.setOnClickListener(this);
     }
 
@@ -27,26 +31,29 @@ public class M001LoginFrg extends BaseFragment<M001LoginFrgBinding, M001LoginVM>
 
     @Override
     protected void clickView(View view) {
-        if(view.getId() == R.id.bt_login){
+        if (view.getId() == R.id.bt_login) {
             String userName = binding.edtUserName.getText().toString();
             String pass = binding.edtPass.getText().toString();
-        if(userName.trim().isEmpty() || pass.trim().isEmpty()){
-            Toast.makeText(context,"Username or password is Empty!!",Toast.LENGTH_SHORT).show();
-            return;
+            if (userName.trim().isEmpty() || pass.trim().isEmpty()) {
+                Toast.makeText(context, "Username or password is Empty!!", Toast.LENGTH_SHORT).show();
+                return;
             }
-        viewmodel.getUser(userName,pass);
+            viewmodel.getUser(userName, pass);
         }
     }
 
     @Override
     protected M001LoginFrgBinding initViewBinding(LayoutInflater inflater, ViewGroup container) {
-        return M001LoginFrgBinding.inflate(inflater,container,false);
+        return M001LoginFrgBinding.inflate(inflater, container, false);
     }
+
     @Override
     public void apiSuccess(Object data, String key) {
         if (key.equals(KEY_CREATE_SESSION)) {
             String sessionId = (String) ((Object[]) data)[0];
             String reqToken = (String) ((Object[]) data)[1];
+            Saving.getInstance().savePref(KEY_SESSION, sessionId);
+            Saving.getInstance().savePref(KEY_REQ_TOKEN, reqToken);
 
             Toast.makeText(context, "Login is successfully!", Toast.LENGTH_SHORT).show();
             callBack.showFragment(M002ListMovieFrg.TAG, null, false);
