@@ -54,7 +54,6 @@ public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewMode
 
     @Override
     public void onClick(View view) {
-        view.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
         clickView(view);
     }
 
