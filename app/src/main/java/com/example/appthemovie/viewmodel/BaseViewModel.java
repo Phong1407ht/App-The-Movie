@@ -1,8 +1,5 @@
 package com.example.appthemovie.viewmodel;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
